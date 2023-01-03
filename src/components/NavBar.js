@@ -1,4 +1,4 @@
-import CallPanel from './CallPanel';
+import WebRTCCallPanel from './WebRTCCallPanel';
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -164,7 +164,7 @@ function NavBar() {
 
       </Navbar>
       <Routes>
-        <Route path="/" element={<CallPanel regState={regState} call={call} callState={callState} callComing={callComing} callInfo={callInfo} callObject={callObject} callEvent={callEvent} callFrom={callFrom} unregisterWait={unregisterWait} />}></Route>
+        <Route path="/" element={<WebRTCCallPanel regState={regState} call={call} callState={callState} callComing={callComing} callInfo={callInfo} callObject={callObject} callEvent={callEvent} callFrom={callFrom} unregisterWait={unregisterWait} />}></Route>
       </Routes>
     </div>
   );

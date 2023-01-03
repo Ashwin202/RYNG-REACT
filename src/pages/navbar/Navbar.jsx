@@ -24,6 +24,11 @@ const navbar = () => {
                             <p className="m-2">Insights</p>
                         </Link>                        
                     </li>
+                    <li className="">                   
+                        <Link to="/webrtc">                           
+                                <p className="m-2">WebRTC</p>
+                        </Link>
+                    </li>
                 </ul>
     </div>
   )

@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 
-function CallPanel(props) {
+function WebRTCCallPanel(props) {
   function acceptCallHandler() {
     console.log("Call needs to be accepted");
     console.log("callObject = ", JSON.stringify(props.callObject));
@@ -68,4 +68,4 @@ function CallPanel(props) {
   );
 }
 
-export default CallPanel;
+export default WebRTCCallPanel;

@@ -23,8 +23,9 @@ function App() {
           <Route path="/"  element={<Home/>} />
           <Route path="/home"  element={<Home/>} />
           <Route path="/campaign" element ={ <Campaign />} />
+          <Route path="/webrtc" element={ <NavBar />}     />
           <Route path="*" element={<NoPage />} />
-          <Route path="/navbar" element={ <NavBar />} />
+          
 
         </Route>
       </Routes>
