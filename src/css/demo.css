@@ -387,3 +387,7 @@ img{
   margin: 5px;
   /* margin-left: 40px; */
 }
+.webrtc-toggle{
+  background-color: "#fff" !important;
+  color: #000  !important;
+}

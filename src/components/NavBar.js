@@ -19,8 +19,9 @@ import { useDispatch,useSelector } from "react-redux";
 function NavBar() {
 
   const dispatch = useDispatch();
-  const [radioValue, setRadioValue] = useState('1');
   const storeRegState = useSelector((store) => store.webrtc.registeredState);
+  const storeRegVal = storeRegState ? '2' : '1'
+  const [radioValue, setRadioValue] = useState(storeRegVal);
   const [regState, setRegState] = useState(storeRegState);
   const [registrationData, setRegistrationData] = React.useState("Not Registered");
   const [callState, setCallState] = React.useState(false);
@@ -79,6 +80,7 @@ function NavBar() {
       setRegState(true)
       dispatch(updateRegisteredState(true))
     } else if (state === 'unregistered') {
+      dispatch(updateRegisteredState(false))
       setRegState(false)
     } else if (state === 'connected') {
       unregisterWait = "false";
@@ -102,7 +104,7 @@ function NavBar() {
      */
     console.log('Session state:', state, 'for number...', phone);
   }
-  function DoRegister() {
+  function initialise_callbacks() {
     const sipAccountInfo = {
       'userName': data[0].Username,
       'authUser': data[0].Username,
@@ -114,20 +116,23 @@ function NavBar() {
       'security': data[0].Security,
       'endpoint': data[0].EndPoint,
     };
-    console.log(sipAccountInfo)
+    console.log(sipAccountInfo)   
     exWebClient.initWebrtc(sipAccountInfo, RegisterEventCallBack, CallListenerCallback, SessionCallback)
+  }
+
+  function DoRegister(){
+    initialise_callbacks()
     console.log("App.js: Calling DoRegister")
     exWebClient.DoRegister();
     toast.success("Agent Active.", {
       position: "top-center", hideProgressBar: true, pauseOnHover: false, autoClose: 1000,
       autoClose: 5000, theme: "colored",
     });
-
-    
-
   }
 
+
   function UnRegister() {
+    initialise_callbacks()
     unregisterWait = "true";
     exWebClient.UnRegister();
     toast.success("Agent Inactive.", {
@@ -144,13 +149,11 @@ function NavBar() {
           <Navbar.Brand href="#home">WebRTC Prototype</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to={"/"} >Demo</Nav.Link>
-            </Nav>
           </Navbar.Collapse>
           <ButtonGroup style={{ marginRight: '30px' }}>
             {radios.map((radio, idx) => (
               <ToggleButton
+              className='webrtc-toggle'
                 key={idx}
                 id={`radio-${idx}`}
                 type="radio"

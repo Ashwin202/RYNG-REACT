@@ -7,7 +7,7 @@ import {useSelector } from "react-redux";
 
 
 
-const CallPanel = () => {
+const CallPanel = (props) => {
   const count =  useSelector((store) => store.counter.count);
   const agentCurrentCall = [callData[count]];
   const  clearScheduledDate = () => {console.log("clearScheduledDate")}
@@ -339,6 +339,7 @@ const CallPanel = () => {
                             </div>
                           </div>
                           <div className="col-8">               
+                              <button id="save-disp-button" type="button" className="opensans btn" style={{background:"#d1001f", border:"none", color:"#C1C1C1", height:"47px"}} onClick={props.rejectCallHandler}>Decline</button>        
                               <button id="save-disp-button" type="button" className="opensans btn" style={{background:"#E6E8E6", border:"none", color:"#C1C1C1", height:"47px"}} onClick={()=> SubmitRedialOnClick(false)}>Dispose</button>        
                               <button id="redial-button" type="button" className="opensans btn" style={{background:"#E6E8E6", border:"none", color:"#C1C1C1",height:"47px"}} onClick={()=> SubmitRedialOnClick(true)}>Redial</button>                 
                           </div>     

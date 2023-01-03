@@ -9,9 +9,11 @@ import Call from '../images/Call.png'
 import Decline from '../images/Decline.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import React from 'react';
+import CallPanel from './CallPanel';
+import React, { useState } from 'react';
 
 function WebRTCCallPanel(props) {
+  const [toggleShow, setToggleShow] = useState(false)
   function acceptCallHandler() {
     console.log("Call needs to be accepted");
     console.log("callObject = ", JSON.stringify(props.callObject));
@@ -22,6 +24,7 @@ function WebRTCCallPanel(props) {
       theme: "dark",
     });
     props.call.Answer();
+    setToggleShow(true)
   }
 
   function rejectCallHandler() {
@@ -34,10 +37,11 @@ function WebRTCCallPanel(props) {
       theme: "dark",
     });
     props.call.Hangup();
+    setToggleShow(false)
   }
   return (
     <div>
-      {(props.regState && (props.callState || props.callComing)) ? (
+      {(props.regState && toggleShow && (props.callState || props.callComing)) ? (<CallPanel rejectCallHandler={rejectCallHandler} />): (props.regState && (props.callState || props.callComing)) ?  (
         <div>
           <div style={{
             position: 'absolute',
