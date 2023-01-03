@@ -6,6 +6,11 @@ import Campaign from './pages/campaign/Campaign';
 import NoPage from './pages/noPage/NoPage';
 
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import NavBar from './components/NavBar'
+
+
 import {BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -19,6 +24,8 @@ function App() {
           <Route path="/home"  element={<Home/>} />
           <Route path="/campaign" element ={ <Campaign />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="/navbar" element={ <NavBar />} />
+
         </Route>
       </Routes>
     </BrowserRouter>  
