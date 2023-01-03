@@ -10,7 +10,7 @@
 }
 
 #agent-image{
-  height: 200px;
+  height: 150px;
 }
 
 .card {
@@ -22,6 +22,7 @@
 
 .call-icon{
   height: 30px;
+  width: 24px;
   margin: 5px;
   /* margin-left: 40px; */
 }

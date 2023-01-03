@@ -9,43 +9,45 @@ import Navbar from 'react-bootstrap/Navbar';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import Config from './Config';
 import data from '../data/credentials.json'
-import { ExotelWebClient} from '@exotel-npm-dev/webrtc-client-sdk';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ExotelWebClient } from '@exotel-npm-dev/webrtc-client-sdk';
 
 function NavBar() {
   const [radioValue, setRadioValue] = useState('1');
-  const [ regState, setRegState ] = React.useState(false);
-  const [ registrationData, setRegistrationData ] = React.useState("Not Registered");
-  const [ callState, setCallState ] = React.useState(false);
-  const [ callComing, setCallComing ] = React.useState(false);
-  const [ callFrom, setCallFrom ] = React.useState("");
-  const [ call, setCall ] = React.useState("");
-  const [ callInfo, setCallInfo ] = React.useState("No Call Info");
-  const [ callObject, setCallObject ] = React.useState("");
-  const [ callEvent, setCallEvent ] = React.useState("");
+  const [regState, setRegState] = React.useState(false);
+  const [registrationData, setRegistrationData] = React.useState("Not Registered");
+  const [callState, setCallState] = React.useState(false);
+  const [callComing, setCallComing] = React.useState(false);
+  const [callFrom, setCallFrom] = React.useState("");
+  const [call, setCall] = React.useState("");
+  const [callInfo, setCallInfo] = React.useState("No Call Info");
+  const [callObject, setCallObject] = React.useState("");
+  const [callEvent, setCallEvent] = React.useState("");
   var unregisterWait = "false";
   const radios = [
     { name: 'Inactive', value: '1' },
     { name: 'Active', value: '2' }
   ];
   const exWebClient = new ExotelWebClient();
-  useEffect(()=>{
+  useEffect(() => {
     console.log("==========NAvbar==============")
-  },[radioValue])
-  
+  }, [radioValue])
+
   function CallListenerCallback(callObj, eventType, phone) {
     console.log("callObj")
     console.log(callObj)
-    setCallInfo('Call Listener\n Message:' + JSON.stringify(callObj) + '\n EventType:' + eventType + '\n Phone:' + phone) 
-    setCallObject(callObj)   
+    setCallInfo('Call Listener\n Message:' + JSON.stringify(callObj) + '\n EventType:' + eventType + '\n Phone:' + phone)
+    setCallObject(callObj)
     setCallEvent(eventType)
     setCallFrom(phone)
     setCall(exWebClient.getCall())
     if (eventType === 'incoming') {
       setCallComing(true)
-    }  else if (eventType === 'connected') {
+    } else if (eventType === 'connected') {
       setCallComing(false)
       setCallState(true)
-    }  else if (eventType === 'callEnded') {
+    } else if (eventType === 'callEnded') {
       setCallComing(false)
       setCallState(false)
     } else if (eventType === 'terminated') {
@@ -53,19 +55,19 @@ function NavBar() {
       setCallState(false)
     }
 
- }
+  }
 
-  function RegisterEventCallBack (state, phone){
+  function RegisterEventCallBack(state, phone) {
     /**
      * Based on the status of the state received against the agent phone, store the data into redux
      */
     console.log("Register Event Callback state")
     console.log(state)
-     if (unregisterWait === "false") {
-    setRegistrationData('Register:\n State:' + state + '\n User:' + phone)   
-     } else {
-    setRegistrationData('UnRegister:\n State:' + state + '\n User:' + phone)   
-     }
+    if (unregisterWait === "false") {
+      setRegistrationData('Register:\n State:' + state + '\n User:' + phone)
+    } else {
+      setRegistrationData('UnRegister:\n State:' + state + '\n User:' + phone)
+    }
     if (state === 'registered') {
       unregisterWait = "false";
       setRegState(true)
@@ -74,9 +76,9 @@ function NavBar() {
     } else if (state === 'connected') {
       unregisterWait = "false";
       setRegState(true)
-    }  else if (state === 'terminated')  {
+    } else if (state === 'terminated') {
       setRegState(false)
-    } else if (state === 'sent_request')  {
+    } else if (state === 'sent_request') {
       if (unregisterWait === "true") {
         unregisterWait = "false";
         setRegState(false)
@@ -91,11 +93,11 @@ function NavBar() {
      * SessionCallback is triggered whenever the state of application changes due to an incoming call
      * which needs to be handled across tabs
      */
-     console.log('Session state:', state, 'for number...', phone);    
- }
-  function DoRegister(){
-    const sipAccountInfo= {
-      'userName':  data[0].Username,
+    console.log('Session state:', state, 'for number...', phone);
+  }
+  function DoRegister() {
+    const sipAccountInfo = {
+      'userName': data[0].Username,
       'authUser': data[0].Username,
       'sipdomain': data[0].Domain,
       'domain': data[0].HostServer + ":" + data[0].Port,
@@ -109,52 +111,61 @@ function NavBar() {
     exWebClient.initWebrtc(sipAccountInfo, RegisterEventCallBack, CallListenerCallback, SessionCallback)
     console.log("App.js: Calling DoRegister")
     exWebClient.DoRegister();
+    toast.success("Agent Active.", {
+      position: "top-center", hideProgressBar: true, pauseOnHover: false, autoClose: 1000,
+      autoClose: 5000, theme: "colored",
+    });
 
   }
 
-  function UnRegister(){
+  function UnRegister() {
     unregisterWait = "true";
     exWebClient.UnRegister();
+    toast.success("Agent Inactive.", {
+      position: "top-center", hideProgressBar: true, pauseOnHover: false, autoClose: 1000,
+      autoClose: 5000, theme: "colored",
+    });
 
   }
   return (
     <div>
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="#home">WebRTC Prototype</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to={"/"} >Demo</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-        <ButtonGroup style={{ marginRight: '30px' }}>
-              {radios.map((radio, idx) => (
-                <ToggleButton
-                  key={idx}
-                  id={`radio-${idx}`}
-                  type="radio"
-                  variant={idx % 2 ? 'outline-success' : 'outline-danger'}
-                  name="radio"
-                  value={radio.value}
-                  checked={radioValue === radio.value}
-                  onChange={(e) =>{
-                    const agentStatus = e.currentTarget.value === '2' ? true : false
-                    setRadioValue(e.currentTarget.value)
-                    agentStatus ? DoRegister() : UnRegister()
-                  } }
-                >
-                  {radio.name}
-                </ToggleButton>
-              ))}
-            </ButtonGroup>
-           User:&nbsp;&nbsp; {regState? <Badge bg="success">Registered</Badge>:<Badge bg="danger">Unregistered</Badge>}
-      </Container>
-    
-    </Navbar> 
+      <Navbar bg="light" expand="lg">
+        <ToastContainer limit={1} />
+        <Container>
+          <Navbar.Brand href="#home">WebRTC Prototype</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to={"/"} >Demo</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+          <ButtonGroup style={{ marginRight: '30px' }}>
+            {radios.map((radio, idx) => (
+              <ToggleButton
+                key={idx}
+                id={`radio-${idx}`}
+                type="radio"
+                variant={idx % 2 ? 'outline-success' : 'outline-danger'}
+                name="radio"
+                value={radio.value}
+                checked={radioValue === radio.value}
+                onChange={(e) => {
+                  const agentStatus = e.currentTarget.value === '2' ? true : false
+                  setRadioValue(e.currentTarget.value)
+                  agentStatus ? DoRegister() : UnRegister()
+                }}
+              >
+                {radio.name}
+              </ToggleButton>
+            ))}
+          </ButtonGroup>
+          User:&nbsp; {regState ? <Badge bg="success">Registered</Badge> : <Badge bg="danger">Unregistered</Badge>}
+        </Container>
+
+      </Navbar>
       <Routes>
-        <Route  path="/" element={<CallPanel regState={regState} call={call} callState={callState} callComing={callComing} callInfo={callInfo} callObject={callObject} callEvent={callEvent} callFrom={callFrom} />}></Route>
-        </Routes>
+        <Route path="/" element={<CallPanel regState={regState} call={call} callState={callState} callComing={callComing} callInfo={callInfo} callObject={callObject} callEvent={callEvent} callFrom={callFrom} unregisterWait={unregisterWait} />}></Route>
+      </Routes>
     </div>
   );
 }
