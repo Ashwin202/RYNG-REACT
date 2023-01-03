@@ -1,0 +1,43 @@
+#modal-box {
+  background: #1d8cf8 !important;
+}
+
+#browserModalClose {
+  background: none !important;
+}
+
+#f.modal-content .modal-footer button {
+  background: none !important;
+}
+.loginImg{
+  height: 7vh;
+}
+
+#username, #password {
+  border-radius: 10px;
+  border-color: lightgrey !important;
+  color: black;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  position: relative !important;
+  color: #ffffff !important;
+  background-color: #f23e46 !important;
+}
+
+#login-button {
+  margin-top: 2vw;
+  border-radius: 10px;
+  background: #f23e46;
+}
+
+.white-content .nav-pills .nav-item .nav-link:not(.active) {
+  background: #d3d7e9 !important;
+  color: #1d253b !important;
+}
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  position: relative;
+  color: #ffffff;
+  background-color: #f23e46;
+}

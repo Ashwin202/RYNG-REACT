@@ -36,3 +36,52 @@
     transform: rotate(360deg);
   }
 }
+
+
+.scrollbox {
+  padding: 0px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  visibility: hidden;
+
+  background:
+    linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+    radial-gradient(50% 0, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background:
+    linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
+
+}
+
+.scrollbox-content,
+.scrollbox:hover,
+.scrollbox:focus {
+  visibility: visible;
+
+}
+
+/* width */
+.scrollbox::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.scrollbox::-webkit-scrollbar-track {
+  background: #EFEFEF;
+}
+
+/* Handle */
+.scrollbox::-webkit-scrollbar-thumb {
+  background: #CED0CE;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+.scrollbox::-webkit-scrollbar-thumb:hover {
+  background: #CED0CE;
+}
+
