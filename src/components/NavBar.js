@@ -13,9 +13,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ExotelWebClient } from '@exotel-npm-dev/webrtc-client-sdk';
 
+import {updateRegisteredState} from '../features/webrtcState/WebrtcSlice';
+import { useDispatch,useSelector } from "react-redux";
+
 function NavBar() {
+
+  const dispatch = useDispatch();
   const [radioValue, setRadioValue] = useState('1');
-  const [regState, setRegState] = React.useState(false);
+  const storeRegState = useSelector((store) => store.webrtc.registeredState);
+  const [regState, setRegState] = useState(storeRegState);
   const [registrationData, setRegistrationData] = React.useState("Not Registered");
   const [callState, setCallState] = React.useState(false);
   const [callComing, setCallComing] = React.useState(false);
@@ -71,6 +77,7 @@ function NavBar() {
     if (state === 'registered') {
       unregisterWait = "false";
       setRegState(true)
+      dispatch(updateRegisteredState(true))
     } else if (state === 'unregistered') {
       setRegState(false)
     } else if (state === 'connected') {
@@ -115,6 +122,8 @@ function NavBar() {
       position: "top-center", hideProgressBar: true, pauseOnHover: false, autoClose: 1000,
       autoClose: 5000, theme: "colored",
     });
+
+    
 
   }
 

@@ -2,7 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import '../index.css'
+// import '../index.css'
+import "../css/demo.css";
 import Agent from '../images/Agent.png'
 import Call from '../images/Call.png'
 import Decline from '../images/Decline.png'

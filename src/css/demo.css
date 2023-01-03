@@ -358,3 +358,32 @@ img{
   text-align: center;
   color: #27AE60;
 }
+
+#call-panel-outer{
+  margin-top: 10%;
+  border: 0.0625rem solid rgba(34, 42, 66, 0.05);
+  box-shadow: 0 1px 20px 0px rgb(0 0 0 / 10%);
+  border-radius: 15px;
+  padding: 25px;
+}
+.mt-2{
+  margin-top: 2em;
+}
+
+#agent-image{
+  height: 150px;
+}
+
+.card {
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 0.0625rem solid rgba(34, 42, 66, 0.05);
+  border-radius: 0.2857rem;
+}
+
+.call-icon{
+  height: 30px;
+  width: 24px;
+  margin: 5px;
+  /* margin-left: 40px; */
+}

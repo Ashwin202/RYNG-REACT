@@ -20,12 +20,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />       
         <Route path="/" element={<Layout />} >
-          <Route path="/"  element={<Home/>} />
-          <Route path="/home"  element={<Home/>} />
-          <Route path="/campaign" element ={ <Campaign />} />
-          <Route path="/webrtc" element={ <NavBar />}     />
-          <Route path="*" element={<NoPage />} />
-          
+        <Route path="/"  element={<Home/>} />
+        <Route path="/home"  element={<Home/>} />
+        <Route path="/campaign" element ={ <Campaign />} />
+        <Route path="/webrtc" element={ <NavBar />}     />
+        <Route path="*" element={<NoPage />} />        
 
         </Route>
       </Routes>
